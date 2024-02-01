@@ -270,3 +270,7 @@ defaults:
       comments: # true
       share: true
       related: true
+
+collections:
+  sample_collection:
+    output: true

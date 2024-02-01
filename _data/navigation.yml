@@ -4,11 +4,11 @@ main:
     url: /about/
   - title: "Posts"
     url: /year-archive/
-  - title: "Collections"
-    url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
   - title: "category"
     url: /categories/
   - title: "tags"
     url: /tags/
+  - title: "Collections"
+    url: /collection-archive/

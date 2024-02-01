@@ -161,6 +161,14 @@ $ bundle exec jekyll serve --livereload
 http://127.0.0.1:4000 에서 jekyll 서버 확인 가능.
 ```
 
+## 테마적용
+
+\_config.yaml 파일 최상단에 아래 내용 추가.(theme 혹은 remote_theme선택가능, theme 설정시 github pages가 빌드오류를 뿜을 수 있음. remote_theme를 선택하자)
+
+```shell
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+```
+
 참고
 https://frhyme.github.io/blog/install_jekyll_again/
 https://antran.app/2021/m1_mac_part2/
