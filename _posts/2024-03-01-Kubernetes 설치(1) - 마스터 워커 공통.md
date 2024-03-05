@@ -23,6 +23,7 @@ tags:
 
 -- calico BIRD BGP
 179/tcp  ALLOW IN    Anywhere
+#https://velog.io/@koo8624/Kubernetes-Calico-Error-caliconode-is-not-ready-BIRD-is-not-ready-BGP-not-established
 ```
 
 **메모리스왑 비활성화**
@@ -47,7 +48,7 @@ sudo apt update
 # 필요한 리스트 설치
 sudo apt -y install vim git curl wget kubeadm=1.27.6-00 kubelet=1.27.6-00 kubectl=1.27.3-00 --allow-downgrades
 sudo apt-get update
-# 버전 고정
+# 버전 고정 (각각의 버전이 달라지면 안된다.)
 sudo apt-mark hold kubelet kubeadm kubectl
 
 
@@ -66,22 +67,30 @@ https://istio.io/latest/docs/releases/supported-releases/
 **네트워크 설정**
 
 ```bash
-# 부팅 시overlay와 br_netfilter 두 가지 모듈을 로드
+# 부팅 시에 overlay와 br_netfilter라는 두 가지 모듈을 로드하도록 설정합니다.
 cat << EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+
+cat << EOF | sudo tee /etc/modules
 overlay
 br_netfilter
 EOF
 ```
 
 ```bash
-# overlay 커널 모듈 즉시 로드, 컨테이너 오버레이 파일 시스템에 사용됩니다.
+# overlay 커널 모듈을 즉시 로드합니다. 컨테이너 오버레이 파일 시스템에 사용됩니다.
 sudo modprobe overlay
 
-# br_netfilter 커널 모듈 즉시 로드, 네트워크 필터링에 사용됩니다.
+# br_netfilter 커널 모듈을 즉시 로드합니다. Linux 브리지 네트워크와 관련된 네트워크 필터링에 사용됩니다.
 sudo modprobe br_netfilter
 ```
 
 ```bash
+# 여기서는 몇 가지 중요한 파라미터를 설정합니다. 예를 들어, net.bridge.bridge-nf-call-iptables는 iptables가 브리지 트래픽을 처리할 수 있도록 하는 설정입니다.
+# sysctl params required by setup, params persist across reboots
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -112,7 +121,7 @@ overlay               151552  54
 ## net.bridge.bridge-nf-call-iptables
 ## net.bridge.bridge-nf-call-ip6tables
 ## net.ipv4.ip_forward
-$ sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+$ sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward net.ipv4.conf.all.rp_filter
 ```
 
 **containered 설정**

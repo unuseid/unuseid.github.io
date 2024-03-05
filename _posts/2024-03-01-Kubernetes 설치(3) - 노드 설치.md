@@ -21,6 +21,7 @@ $ sudo kubeadm init
 **kubectl 설정**
 
 ```bash
+#kubectl 을 다른 계정에서도 사용할 수 있도록.
 mkdir -p $HOME/.kube
 sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -49,3 +50,14 @@ $ kubectl get nodes
 NAME   STATUS   ROLES           AGE   VERSION
 com    Ready    control-plane   21m   v1.28.2
 ```
+
+**워커 조인커맨드 생성**
+
+```bash
+#join 할 클러스터의 마스터에서 실행
+$ kubeadm token create --print-join-command
+
+kubeadm join 192.168.50.148:6443 --token 2dvzce.zckgqiw98bh1bacg --discovery-token-ca-cert-hash sha256:abad4caa70e197241ab7bc9f621dd819060d2f93d00f887b0527edc02c9347cf
+```
+
+생성된 커맨드를 워커에서 실행.
