@@ -1,5 +1,5 @@
 ---
-title: "upyter와 Tensorflow환경 설치"
+title: "Jupyter와 Tensorflow환경 설치"
 categories:
   - Dev
 tags:
