@@ -1,5 +1,5 @@
 ---
-title: "Knative 설치(1)-containered 설치"
+title: "Kubernetes 설치(2) - containered 설치"
 categories:
   - Dev
 tags:

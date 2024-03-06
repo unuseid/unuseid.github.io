@@ -1,5 +1,5 @@
 ---
-title: "Knative 설치(2) 마스터 워커 공통"
+title: "Kubernetes 설치(1) - 마스터 워커 공통"
 categories:
   - Dev
 tags:

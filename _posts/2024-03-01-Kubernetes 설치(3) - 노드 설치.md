@@ -1,5 +1,5 @@
 ---
-title: "Knative 설치(3) 마스터 설치"
+title: "Kubernetes 설치(3) - 노드 설치"
 categories:
   - Dev
 tags:
